@@ -1,4 +1,5 @@
 import { getCustomRepository, getRepository } from 'typeorm';
+import { compare } from 'bcryptjs';
 
 import AppError from '../errors/AppError';
 
@@ -10,6 +11,7 @@ interface RequestDTO {
   user_id: string;
   type: boolean;
   value: number;
+  cpf: string;
 }
 
 interface TransactionResponseProps extends Omit<
@@ -20,14 +22,18 @@ Transaction,
 }
 
 class CreateTransactionService {
-  public async execute({ user_id, type, value }: RequestDTO): Promise<TransactionResponseProps> {
+  public async execute({ user_id, type, value, cpf }: RequestDTO): Promise<TransactionResponseProps> {
     const transactionsRepository = getCustomRepository(TransactionsRepository);
     const usersRepository = getRepository(User)
 
     const user = await usersRepository.findOne({ where: { id: user_id }}) 
 
     if (!user) {
-      throw new AppError('Erro de conexão!')
+      throw new AppError('Erro de interno.', 401)
+    }
+
+    if (!(cpf===user.cpf)) {
+      throw new AppError('CPF incorretos.', 401);
     }
 
     if (!type) {
@@ -36,6 +42,7 @@ class CreateTransactionService {
       }
 
       user.balance = user.balance - value
+
     } else {
       user.balance = user.balance + value
     }
