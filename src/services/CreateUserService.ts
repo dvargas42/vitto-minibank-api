@@ -50,10 +50,12 @@ class CreateUserService {
     }
 
     const userWithoutPassword = {
-      id: userTotalData.id,
-      name: userTotalData.name,
-      cpf: userTotalData.cpf,
-      balance: userTotalData.balance,
+      id: user.id,
+      name: user.name,
+      cpf: user.cpf,
+      balance: user.balance,
+      created_at: user.created_at,
+      updated_at: user.updated_at,
     }
 
     return userWithoutPassword;
