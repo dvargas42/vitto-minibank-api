@@ -30,7 +30,6 @@
 
 
 
-
 <p align="center">
   <a href="#%EF%B8%8F-about-the-project">About the project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-screnshots">Screenshots</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -42,26 +41,17 @@
 
 ## 💇🏼 About the project
 
-This app was part of a challenge to test the ability to implement features in an API built with NodeJS.
+This app was part of a challenge to test the ability to implement features in an API built with NodeJS. Among the applied knowledge are: creation of routes, creation of middlewares, creation of global error objects, creation of authentication routes using JWT, creation of business rules that were divided into services, among others.
 
 ## 📸 Sreenshots
 
 Images of the application in operation.
 
 <p align="center">
-<img alt="ScreenShot01" src="https://res.cloudinary.com/dvargas42/image/upload/v1623255426/brewing-houses/bhfront01_tyjdru.png" width="400px">
-<img alt="ScreenShot01" src="https://res.cloudinary.com/dvargas42/image/upload/v1623255427/brewing-houses/bhmodal01_fgoeur.png" width="400px">
+<img alt="ScreenShot01" src="https://res.cloudinary.com/dvargas42/image/upload/v1623880814/vitto-minibank/vitto-bank1_u3m45l.png" width="400px">
+<img alt="ScreenShot01" src="https://res.cloudinary.com/dvargas42/image/upload/v1623880813/vitto-minibank/vitto-bank2_tvlohe.png" width="400px">
 </p>
 
-<p align="center">
-<img alt="ScreenShot01" src="https://res.cloudinary.com/dvargas42/image/upload/v1623255426/brewing-houses/bhtable01_ygjbga.png" width="400px">
-<img alt="ScreenShot01" src="https://res.cloudinary.com/dvargas42/image/upload/v1623255427/brewing-houses/bhtable02_ebxuxr.png" width="400px">
-</p>
-
-<p align="center">
-<img alt="ScreenShot01" src="https://res.cloudinary.com/dvargas42/image/upload/v1623255426/brewing-houses/bhsearch01_lnjryj.png" width="400px">
-<img alt="ScreenShot01" src="https://res.cloudinary.com/dvargas42/image/upload/v1623255426/brewing-houses/bhsearch02_tzox5f.png" width="400px">
-</p>
 
 ## 🚀 Technologies
 
@@ -80,6 +70,10 @@ Technologies that I used to develop this web application
 
 ## 💻 Getting started
 
+To run this application you will need to have Docker installed on your PC. However, no need to worry, at the root of this project we have a Dockerfile script that will create the DBMS with the necessary database. After that, just run the migrations and the tables will be created automatically. Below I leave a step-by-step to prepare your environment.
+
+Attention, even after all this the database will be empty. If you want, you can download our front-end from this site or use a tool like Insomnia or Postmann to manipulate the routes.
+
 ### Requirements
 
 - [NodeJS](https://nodejs.org/en/)
@@ -94,15 +88,6 @@ $ git clone https://github.com/dvargas42/vitto-minibank-api.git
 
 **Follow the steps below**
 
-```bash
-# Install the dependencies
-$ yarn
-
-# To finish, run the webapp 
-$ yarn dev:server
-
-```
-**In another terminal tab or terminal window**
 It will be necessary to create a database so that our api can persist the data
 
 Make sure the Docker is installed with the following command:
@@ -147,6 +132,17 @@ And finally to create the tables just type the command below and the migrations 
 ```bash
 $ yarn typeorm migration:run
 # Well done, database is started!
+```
+
+**In another terminal tab or terminal window**
+
+```bash
+# Install the dependencies
+$ yarn
+
+# To finish, run the webapp 
+$ yarn dev:server
+
 ```
 
 ## 🤔 How to contribute
