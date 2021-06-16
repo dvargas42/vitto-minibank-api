@@ -12,7 +12,6 @@ transactionsRouter.use(ensureAuthenticated)
 
 transactionsRouter.get('/', async (request, response) => {
   const { id } = request.user
-  console.log('id '+id)
 
   const transactionsRepository = getCustomRepository(TransactionsRepository)
 
@@ -24,14 +23,15 @@ transactionsRouter.get('/', async (request, response) => {
 });
 
 transactionsRouter.post('/', async (request, response) => {
-  const { user_id, type, value } = request.body;
+  const { user_id, type, value, cpf } = request.body;
 
   const createTransaction = new CreateTransactionService();
 
   const transaction = await createTransaction.execute({
     user_id,
     type,
-    value
+    value,
+    cpf
   })
 
   return response.json(transaction)
