@@ -1,11 +1,11 @@
 <h1 align="center">
-  <img alt="Logo" src="./public/image/logotype.png" width="500px">
+  <img alt="Logo" src="https://res.cloudinary.com/dvargas42/image/upload/v1623888226/vitto-minibank/Logo_cb3zek.png" width="500px">
 
 <h3 align="center">
   An API made in NodeJS for Vitto Mini Bank Project.
 </h3>
 
-<p align="center">The best way to store your financial expenses!</p>
+<p align="center">The best way to take care of your money!</p>
 
 <p align="center">
 
