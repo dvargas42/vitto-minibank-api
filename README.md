@@ -49,7 +49,15 @@ Images of the application in operation.
 
 <p align="center">
 <img alt="ScreenShot01" src="https://res.cloudinary.com/dvargas42/image/upload/v1623880814/vitto-minibank/vitto-bank1_u3m45l.png" width="400px">
-<img alt="ScreenShot01" src="https://res.cloudinary.com/dvargas42/image/upload/v1623880813/vitto-minibank/vitto-bank2_tvlohe.png" width="400px">
+<img alt="ScreenShot02" src="https://res.cloudinary.com/dvargas42/image/upload/v1623880813/vitto-minibank/vitto-bank2_tvlohe.png" width="400px">
+</p>
+<p align="center">
+<img alt="ScreenShot03" src="https://res.cloudinary.com/dvargas42/image/upload/v1623884475/vitto-minibank/vitto-bank9_rgjjsl.png" width="400px">
+<img alt="ScreenShot04" src="https://res.cloudinary.com/dvargas42/image/upload/v1623884474/vitto-minibank/vitto-bank10_ttluis.png" width="400px">
+</p>
+<p align="center">
+<img alt="ScreenShot03" src="https://res.cloudinary.com/dvargas42/image/upload/v1623884474/vitto-minibank/vitto-bank11_htrygz.png" width="400px">
+<img alt="ScreenShot04" src="https://res.cloudinary.com/dvargas42/image/upload/v1623884476/vitto-minibank/vitto-bank12_cvf7mo.png" width="400px">
 </p>
 
 
@@ -73,6 +81,9 @@ Technologies that I used to develop this web application
 To run this application you will need to have Docker installed on your PC. However, no need to worry, at the root of this project we have a Dockerfile script that will create the DBMS with the necessary database. After that, just run the migrations and the tables will be created automatically. Below I leave a step-by-step to prepare your environment.
 
 Attention, even after all this the database will be empty. If you want, you can download our front-end from this site or use a tool like Insomnia or Postmann to manipulate the routes.
+
+- [vitto-minibank-frontend](https://github.com/dvargas42/vitto-minibank-frontend)
+
 
 ### Requirements
 
@@ -98,9 +109,11 @@ $ docker version
 If not, just install it using the links below.
 
 For Windows and Mac:
+
 - [Docker](https://docs.docker.com/desktop/)
 
 For Linux:
+
 -[Docker](https://docs.docker.com/engine/install/)
 
 After that, enter command that will create a postgres Docker image already with vittobank database.
