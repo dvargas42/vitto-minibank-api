@@ -22,14 +22,14 @@ usersRouter.post('/', async (request, response) => {
 
     const createUser = new CreateUserService();
 
-    const userData = await createUser.execute({
+    const user = await createUser.execute({
       name,
       cpf,
       password,
     });
 
 
-    return response.json(userData);
+    return response.json(user);
 });
 
 export default usersRouter;
