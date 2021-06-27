@@ -7,11 +7,13 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer'
 
-import User from './User';
+import { User } from './User';
 
 @Entity('transactions')
 class Transaction {
+  @Exclude()
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -31,8 +33,9 @@ class Transaction {
   @CreateDateColumn()
   created_at: Date;
 
+  @Exclude()
   @UpdateDateColumn()
   updated_at: Date;
 }
 
-export default Transaction;
+export { Transaction };
