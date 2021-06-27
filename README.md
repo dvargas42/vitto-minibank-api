@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="Logo" src="https://res.cloudinary.com/dvargas42/image/upload/v1623888226/vitto-minibank/Logo_cb3zek.png" width="500px">
+  <img alt="Logo" src="https://res.cloudinary.com/dvargas42/image/upload/v1623888226/vitto-minibank/Logo_cb3zek.png" width="400px">
 
 <h3 align="center">
   An API made in NodeJS for Vitto Mini Bank Project.
@@ -31,11 +31,12 @@
 
 
 <p align="center">
-  <a href="#%EF%B8%8F-about-the-project">About the project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-screnshots">Screenshots</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-getting-started">Getting started</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-how-to-contribute">How to contribute</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#%EF%B8%8F-about-the-project">About the project</a>&nbsp;|&nbsp;
+  <a href="#-screnshots">Screenshots</a>&nbsp;|&nbsp;
+  <a href="#-technologies">Technologies</a>&nbsp;|&nbsp;
+  <a href="#-getting-started">Getting started</a>&nbsp;|&nbsp;
+  <a href="#-route-structure">Route structure (NEW!)</a>&nbsp;|&nbsp;
+  <a href="#-how-to-contribute">How to contribute</a>&nbsp;|&nbsp;
   <a href="#-license">License</a>
 </p>
 
@@ -75,6 +76,7 @@ Technologies that I used to develop this web application
 - [Express Async Errors](https://www.npmjs.com/package/express-async-errors)
 - [UUID V4](https://www.npmjs.com/package/uuidv4)
 - [Date FNS](https://date-fns.org/)
+- [Class Transformer](https://github.com/typestack/class-transformer) NEW! (to remove password and cpf return)
 
 ## 💻 Getting started
 
@@ -110,11 +112,11 @@ If not, just install it using the links below.
 
 For Windows and Mac:
 
-- [Docker](https://docs.docker.com/desktop/)
+- [Docker Windows / Mac](https://docs.docker.com/desktop/)
 
 For Linux:
 
--[Docker](https://docs.docker.com/engine/install/)
+- [Docker Linux](https://docs.docker.com/engine/install/)
 
 After that, enter command that will create a postgres Docker image already with vittobank database.
 
@@ -140,12 +142,6 @@ If not, just type the command below to upload the container
 $ docker start vitto_bank
 ```
 
-And finally to create the tables just type the command below and the migrations will be run
-
-```bash
-$ yarn typeorm migration:run
-# Well done, database is started!
-```
 
 **In another terminal tab or terminal window**
 
@@ -153,10 +149,91 @@ $ yarn typeorm migration:run
 # Install the dependencies
 $ yarn
 
+# Finally to create the tables, just run the migrations
+$ yarn typeorm migration:run
+
 # To finish, run the webapp 
 $ yarn dev:server
 
 ```
+## 🛰 Routes structure (NEW!)
+
+```shell
+
+├── /users
+│     │
+│     ├── / -> (POST method) Create user
+│     │
+│     └── / -> (GET method) List user data
+│
+├── /transactions
+│     │
+│     ├── / -> (POST method) Create Transaction
+│     │
+│     └── / -> (GET method) List User Transactions
+│
+└── /sessions
+      │
+      └── / -> (POST method) Create Session
+
+```
+### **Route Users (./users/)**
+*GET Method - List user*
+
+Input:
+```shell
+{ } # Just the JWT
+```
+Return:
+```shell
+{ id, name, balance, created_at, updated-at }
+```
+*POST Method - Create user*
+
+Input:
+```shell
+{ name, cpf, password }
+```
+Return:
+```shell
+{ id, name, balance, created_at, updated-at }
+```
+### **Route Transactions (./transactions/)**
+*GET Method - List transaction*
+
+Input:
+```shell
+{ } # Just the JWT
+```
+Return:
+```shell
+{ id, user_id, type, value, created_at, updated-at }
+```
+*POST Method - Create transaction*
+
+Input:
+```shell
+{ type, value, cpf }
+```
+Return:
+```shell
+{ user_id , type, balance, value, created-at }
+```
+### **Route Sessions (./sessions/)**
+*POST Method - Create session*
+
+Input:
+```shell
+{ cpf, password }
+```
+Return:
+```shell
+{
+  user: { id, name, balance, created_at, updated-at },
+  token: JWT
+}
+```
+
 
 ## 🤔 How to contribute
 
