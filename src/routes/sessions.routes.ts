@@ -13,17 +13,8 @@ sessionsRouter.post('/', async (request, response) => {
     cpf,
     password,
   })
-  
-  const userWithoutPassword = {
-    id: user.id,
-    name: user.name,
-    cpf: user.cpf,
-    balance: user.balance,
-    created_at: user.created_at,
-    updated_at: user.updated_at,
-  };
 
-  return response.json({ user: userWithoutPassword, token });
+  return response.json({ user, token });
 })
 
 export default sessionsRouter;
