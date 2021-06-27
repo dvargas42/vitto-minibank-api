@@ -1,25 +1,27 @@
-import { getRepository } from 'typeorm';
+import { getCustomRepository, getRepository } from 'typeorm';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import authConfig from '../config/auth';
 
 import AppError from '../errors/AppError';
 
-import User from '../models/User';
+import authConfig from '../config/auth';
+import { User } from '../models/User';
+import { classToPlain,  } from 'class-transformer';
+import { UsersRepository } from '../repositories/UsersRepository';
 
-interface Request {
+interface IRequest {
   cpf: string;
   password: string;
 }
 
-interface Response {
-  user: User;
+interface IResponse {
+  user: Omit<User, 'password'>;
   token: string;
 }
 
 class AuthenticateUserService {
-  public async execute({ cpf, password }: Request): Promise<Response> {
-    const usersRepository = getRepository(User);
+  public async execute({ cpf, password }: IRequest): Promise<IResponse> {
+    const usersRepository = getCustomRepository(UsersRepository);
 
     const user = await usersRepository.findOne({ where: { cpf } });
 
@@ -41,7 +43,7 @@ class AuthenticateUserService {
     });
 
     return {
-      user,
+      user: classToPlain(user) as Omit<User, 'password'>,
       token,
     };
   }
