@@ -233,7 +233,11 @@ Return:
   token: JWT
 }
 ```
+<p align="center">
+<a href="https://insomnia.rest/run/?label=Vitto%20Bank&uri=https%3A%2F%2Fdrive.google.com%2Ffile%2Fd%2F1y5dUc-x5WrUGDl5TTsSyqbC_sLcFKJIm%2Fview%3Fusp%3Dsharing" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a>
+</p>
 
+&nbsp;
 
 ## 🤔 How to contribute
 
