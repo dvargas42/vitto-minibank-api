@@ -1,35 +1,37 @@
-import { getCustomRepository, getRepository } from 'typeorm';
-import { compare } from 'bcryptjs';
+import { getCustomRepository } from 'typeorm';
+import { classToPlain } from 'class-transformer'
 
 import AppError from '../errors/AppError';
 
-import Transaction from '../models/Transaction';
-import User from '../models/User';
-import TransactionsRepository from '../repositories/TransactionsRepository';
+import { Transaction } from '../models/Transaction';
+import { TransactionsRepository } from '../repositories/TransactionsRepository';
+import { UsersRepository } from '../repositories/UsersRepository';
 
-interface RequestDTO {
+interface IRequest {
   user_id: string;
   type: boolean;
   value: number;
   cpf: string;
 }
 
-interface TransactionResponseProps extends Omit<
-Transaction,
-'id' | 'created_at' | 'updated_at' | 'user'
-> {
+interface IResponse{
+  user_id: string;
+  type: boolean;
+  value: number;
+  created_at: Date;
   balance: number;
 }
 
 class CreateTransactionService {
-  public async execute({ user_id, type, value, cpf }: RequestDTO): Promise<TransactionResponseProps> {
+  public async execute({ user_id, type, value, cpf }: IRequest): Promise<IResponse> {
+    const usersRepository = getCustomRepository(UsersRepository)
+
     const transactionsRepository = getCustomRepository(TransactionsRepository);
-    const usersRepository = getRepository(User)
 
     const user = await usersRepository.findOne({ where: { id: user_id }}) 
 
     if (!user) {
-      throw new AppError('Erro de interno.', 401)
+      throw new AppError('Erro Interno.', 401)
     }
 
     if (!(cpf===user.cpf)) {
@@ -57,14 +59,13 @@ class CreateTransactionService {
 
     await transactionsRepository.save(transaction)
 
-    const transactionResponse = {
-      user_id: transaction.user_id,
-      type: transaction.type,
-      value: transaction.value,
+    return {
+      ...classToPlain(transaction) as Pick<
+        Transaction,
+        'user_id' | 'type' | 'value' | 'created_at'
+      >,
       balance: user.balance
     }
-
-    return transactionResponse
   }
 }
 
