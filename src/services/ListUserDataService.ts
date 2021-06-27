@@ -1,24 +1,20 @@
-import { getRepository } from 'typeorm';
+import { getCustomRepository } from 'typeorm';
 
-import User from '../models/User';
 import AppError from '../errors/AppError';
 
-interface Request {
+import { User } from '../models/User';
+import { classToPlain } from 'class-transformer';
+import { UsersRepository } from '../repositories/UsersRepository';
+
+interface IRequest {
   id: string;
 }
 
-interface Response {
-  id: string,
-  name: string,
-  cpf: string,
-  balance: number,
-  created_at: Date,
-  updated_at: Date,
-}
+type IResponse = Omit<User, 'password' | 'cpf'>
 
 class ListUserDataService {
-  public async execute({ id }: Request): Promise<Response> {
-    const usersRepository = getRepository(User);
+  public async execute({ id }: IRequest): Promise<IResponse> {
+    const usersRepository = getCustomRepository(UsersRepository);
 
     const user = await usersRepository.findOne({ where: { id: id } });
 
@@ -26,16 +22,7 @@ class ListUserDataService {
       throw new AppError('Erro interno.', 401);
     }
 
-    const userWithoutPassword = {
-      id: user.id,
-      name: user.name,
-      cpf: user.cpf,
-      balance: user.balance,
-      created_at: user.created_at,
-      updated_at: user.updated_at,
-    }
-
-    return userWithoutPassword 
+    return classToPlain(user) as IResponse
   }
 }
 
