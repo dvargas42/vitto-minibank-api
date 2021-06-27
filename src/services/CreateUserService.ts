@@ -1,25 +1,26 @@
-import { getRepository } from 'typeorm';
-import { hash } from 'bcryptjs';
+import { getCustomRepository } from 'typeorm'
+import { classToPlain } from 'class-transformer'
+import { hash } from 'bcryptjs'
 
-import AppError from '../errors/AppError';
+import AppError from '../errors/AppError'
 
-import User from '../models/User';
+import { User } from '../models/User'
+import { UsersRepository } from '../repositories/UsersRepository'
 
-interface RequestDTO {
+interface IRequest {
   name: string;
   cpf: string;
   password: string;
 }
 
-type UserProps = Omit < User, 'password' | 'created_at' | 'updated_at'>
+type IResponse = Omit<User, 'password'>
 
 const promotionBalance = 300
 
 class CreateUserService {
-  public async execute({ name, cpf, password }: RequestDTO): Promise<UserProps> {
-
-    const usersRepository = getRepository(User);
-
+  public async execute({ name, cpf, password }: IRequest): Promise<IResponse> {
+    const usersRepository = getCustomRepository(UsersRepository);
+    
     const checkUserExists = await usersRepository.findOne({
       where: { cpf },
     })
@@ -39,26 +40,17 @@ class CreateUserService {
 
     await usersRepository.save(user);
 
-    const userTotalData = await usersRepository.findOne({
+    const userData = await usersRepository.findOne({
       where: {
         cpf: user.cpf
       }
     })
 
-    if (!userTotalData) {
+    if (!userData) {
       throw new AppError('Erro de conexão!')
     }
 
-    const userWithoutPassword = {
-      id: user.id,
-      name: user.name,
-      cpf: user.cpf,
-      balance: user.balance,
-      created_at: user.created_at,
-      updated_at: user.updated_at,
-    }
-
-    return userWithoutPassword;
+    return classToPlain(userData) as Omit<User, 'password'>;
   }
 }
 
